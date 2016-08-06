@@ -11,9 +11,6 @@ const VENDOR = [
   'react-virtualized',
 ];
 
-// multiple extract instances
-const extractCSS = new ExtractTextPlugin('bundle.css');
-
 module.exports = {
   context: __dirname,
   devtool: DEBUG ? 'cheap-module-eval-source-map' : undefined,
@@ -21,11 +18,11 @@ module.exports = {
     bundle: [
       'webpack-dev-server/client?http://0.0.0.0:8080',
       'webpack/hot/only-dev-server',
-      './src/app.jsx',
+      './src/app.js',
     ],
     vendor: VENDOR,
   } : {
-    app: ['./src/app.jsx'],
+    app: ['./src/app.js'],
     vendor: VENDOR,
   },
   output: {
@@ -36,14 +33,14 @@ module.exports = {
   module: {
     preLoaders: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         loaders: ['eslint'],
         exclude: /node_modules/,
       },
     ],
     loaders: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         loader: ['babel'],
         query: {
@@ -52,7 +49,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: extractCSS.extract(['style', 'css']),
+        loader: ExtractTextPlugin.extract('style', 'css'),
       },
       {
         test: /\.less$/,
@@ -96,7 +93,7 @@ module.exports = {
       },
       sourceMap: DEBUG,
     }),
-    extractCSS,
+    new ExtractTextPlugin('bundle.css'),
   ],
   devServer: {
     contentBase: path.resolve(__dirname, './src/'),

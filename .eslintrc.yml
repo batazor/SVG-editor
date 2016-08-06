@@ -1,4 +1,8 @@
 extends: airbnb
+rules:
+  import/no-extraneous-dependencies: [error, { devDependencies: true }]
+  import/no-unresolved: 0
+  react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }]
 env:
   es6: true
   node: true
