@@ -1,14 +1,8 @@
-require('dotenv').config();
-
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const DEBUG = process.env.NODE_ENV === 'development';
-
-const devFlagPlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(DEBUG)),
-});
 
 const VENDOR = [
   'babel-polyfill',
@@ -35,9 +29,9 @@ module.exports = {
     vendor: VENDOR,
   },
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/public/',
+    publicPath: '/dist/',
   },
   module: {
     preLoaders: [
@@ -50,8 +44,11 @@ module.exports = {
     loaders: [
       {
         test: /\.(js|jsx)$/,
-        loaders: ['react-hot', 'babel'],
-        exclude: /node_modules/,
+        exclude: /(node_modules|bower_components)/,
+        loader: ['babel'],
+        query: {
+          presets: ['react', 'es2015', 'stage-0'],
+        },
       },
       {
         test: /\.css$/,
@@ -59,12 +56,12 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: extractCSS.extract(['style', `css-loader?${JSON.stringify({
+        loader: DEBUG ? 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less' : ExtractTextPlugin.extract('style', `css-loader?${JSON.stringify({ // eslint-disable-line
           sourceMap: DEBUG,
           modules: true,
           localIdentName: DEBUG ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
           minimize: !DEBUG,
-        })}!less`]),
+        })}!less`),
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -82,12 +79,7 @@ module.exports = {
       minChunks: Infinity,
       filename: 'vendor.bundle.js',
     }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: !DEBUG,
-      debug: DEBUG,
-    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    // new webpack.optimize.DedupePlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -105,7 +97,6 @@ module.exports = {
       sourceMap: DEBUG,
     }),
     extractCSS,
-    devFlagPlugin,
   ],
   devServer: {
     contentBase: path.resolve(__dirname, './src/'),
