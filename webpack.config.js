@@ -49,31 +49,25 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: 'css-loader',
-        }),
+        loader: ExtractTextPlugin.extract(['css']),
       },
-    //   {
-    //     test: /\.less$/,
-    //     loader: DEBUG ? 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less' : ExtractTextPlugin.extract({ // eslint-disable-line
-    //       fallbackLoader: `style-loader!css-loadercss-loader?${JSON.stringify({ // eslint-disable-line
-    //         sourceMap: DEBUG,
-    //         modules: true,
-    //         localIdentName: DEBUG ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
-    //         minimize: !DEBUG,
-    //       })}`,
-    //       loaders: ['less-loader'],
-    //     }),
-    //   },
-    //   {
-    //     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    //     loader: 'url-loader?limit=10000&mimetype=application/font-woff',
-    //   },
-    //   {
-    //     test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    //     loader: 'file-loader',
-    //   },
+      {
+        test: /\.less/,
+        loader: ExtractTextPlugin.extract([`css?${JSON.stringify({ // eslint-disable-line
+          sourceMap: DEBUG,
+          modules: true,
+          localIdentName: DEBUG ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+          minimize: !DEBUG,
+        })}`, 'less']),
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url?limit=10000&mimetype=application/font-woff',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file',
+      },
     ],
   },
   plugins: [

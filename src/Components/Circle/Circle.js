@@ -1,10 +1,22 @@
-import React, { Component } from 'react'; // eslint-disable-line
+import React, { Component, PropTypes } from 'react'; // eslint-disable-line
 
 class Circle extends Component { // eslint-disable-line
 
   render() {
-    return <h1>test</h1>;
+    return (
+      <circle
+        cx={this.props.cx}
+        cy={this.props.cy}
+        r={this.props.r}
+      />
+    );
   }
 }
+
+Circle.propTypes = {
+  cx: PropTypes.number.isRequired,
+  cy: PropTypes.number.isRequired,
+  r: PropTypes.number.isRequired,
+};
 
 export default Circle;
