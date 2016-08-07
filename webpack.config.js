@@ -15,7 +15,7 @@ module.exports = {
   context: __dirname,
   devtool: DEBUG ? 'cheap-module-eval-source-map' : undefined,
   entry: DEBUG ? {
-    bundle: [
+    app: [
       'webpack-dev-server/client?http://0.0.0.0:8080',
       'webpack/hot/only-dev-server',
       './src/app.js',
@@ -44,30 +44,36 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: ['babel'],
         query: {
-          presets: ['react', 'es2015', 'stage-0'],
+          presets: ['es2015', 'react'],
         },
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css'),
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: 'style-loader',
+          loader: 'css-loader',
+        }),
       },
-      {
-        test: /\.less$/,
-        loader: DEBUG ? 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less' : ExtractTextPlugin.extract('style', `css-loader?${JSON.stringify({ // eslint-disable-line
-          sourceMap: DEBUG,
-          modules: true,
-          localIdentName: DEBUG ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
-          minimize: !DEBUG,
-        })}!less`),
-      },
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader',
-      },
+    //   {
+    //     test: /\.less$/,
+    //     loader: DEBUG ? 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less' : ExtractTextPlugin.extract({ // eslint-disable-line
+    //       fallbackLoader: `style-loader!css-loadercss-loader?${JSON.stringify({ // eslint-disable-line
+    //         sourceMap: DEBUG,
+    //         modules: true,
+    //         localIdentName: DEBUG ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
+    //         minimize: !DEBUG,
+    //       })}`,
+    //       loaders: ['less-loader'],
+    //     }),
+    //   },
+    //   {
+    //     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    //     loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+    //   },
+    //   {
+    //     test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    //     loader: 'file-loader',
+    //   },
     ],
   },
   plugins: [
