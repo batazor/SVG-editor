@@ -40,11 +40,24 @@ module.exports = {
     ],
     loaders: [
       {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: ['babel'],
+        test: /\.js?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
-          presets: ['es2015', 'react'],
+          // https://github.com/babel/babel-loader#options
+          cacheDirectory: DEBUG,
+
+          // https://babeljs.io/docs/usage/options/
+          babelrc: false,
+          presets: [
+            'react',
+            'es2015',
+            'stage-1',
+          ],
+          plugins: [
+            'transform-runtime',
+            'transform-decorators-legacy'
+          ],
         },
       },
       {
@@ -96,7 +109,7 @@ module.exports = {
     new ExtractTextPlugin('bundle.css'),
   ],
   devServer: {
-    contentBase: path.resolve(__dirname, './src/'),
+    contentBase: path.resolve(__dirname, './src'),
     compress: false,
     hot: true,
     quiet: false,
