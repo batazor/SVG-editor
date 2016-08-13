@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'; // eslint-disable-line
 
-import Circle from '../Circle';
+import { Circle } from '../../SVG';
 
 class Aside extends Component { // eslint-disable-line
 

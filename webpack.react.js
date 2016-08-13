@@ -56,22 +56,22 @@ module.exports = {
           ],
           plugins: [
             'transform-runtime',
-            'transform-decorators-legacy'
+            'transform-decorators-legacy',
           ],
         },
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract(['css']),
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
       },
       {
         test: /\.less/,
-        loader: ExtractTextPlugin.extract([`css?${JSON.stringify({ // eslint-disable-line
+        loader: ExtractTextPlugin.extract('style-loader', `css-loader?${JSON.stringify({ // eslint-disable-line
           sourceMap: DEBUG,
           modules: true,
           localIdentName: DEBUG ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
           minimize: !DEBUG,
-        })}`, 'less']),
+        })}`, 'less-loader'),
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,

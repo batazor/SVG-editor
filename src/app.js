@@ -2,13 +2,12 @@ import React from 'react';
 import { render } from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import 'normalize.css/normalize.css';
 import 'flexboxgrid/css/flexboxgrid.min.css';
 import 'react-virtualized/styles.css';
 import './app.less';
 
-import Aside from './Components/Aside';
-import Content from './Components/Content';
+import Aside from './Components/Editor/Aside';
+import Content from './Components/Editor/Content';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941

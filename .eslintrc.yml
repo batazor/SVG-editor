@@ -1,6 +1,7 @@
 extends: airbnb
 rules:
   new-cap: 0
+  no-console: 0
   import/no-extraneous-dependencies: [0, { devDependencies: true }]
   react/jsx-filename-extension: [1, { "extensions": [".js"] }]
   react/prefer-stateless-function: 0
