@@ -59,7 +59,7 @@
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "react": "^16.8.6",
-    "react-addons-shallow-compare": "^15.3.0",
+    "react-addons-shallow-compare": "^15.6.2",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.4",
     "react-tap-event-plugin": "^3.0.3",
