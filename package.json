@@ -66,7 +66,7 @@
     "react-transform-catch-errors": "^1.0.2",
     "react-virtualized": "^7.19.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1",
+    "webpack": "^1.15.0",
     "webpack-dev-server": "^1.14.1"
   }
 }
