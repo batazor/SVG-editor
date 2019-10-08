@@ -61,7 +61,7 @@
     "react": "^16.10.2",
     "react-addons-shallow-compare": "^15.6.2",
     "react-dom": "^16.10.2",
-    "react-hot-loader": "^4.12.14",
+    "react-hot-loader": "^4.12.15",
     "react-tap-event-plugin": "^3.0.3",
     "react-transform-catch-errors": "^1.0.2",
     "react-virtualized": "^9.21.1",
